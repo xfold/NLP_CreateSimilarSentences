@@ -67,6 +67,25 @@ There are various parameters that can be passed to `CreateSimilarSentences` func
 # Examples
 All examples are included in the the jupyter notebook `RunExamples.ipynb` included in the project. Here I include some of them:
 ## Simple example
+```
+import NLPSentenceCreator
+sc = NLPSentenceCreator.SentenceCreator()
+sentence = 'The house is on fire, call the firemen!'
+sc.CreateSimilarSentences(sentence, n=10, seed=42)
+
+output:
+     [Out] : {'the house is burning, call the firefighters!',
+     'the house is burning, the firefighters are calling!',
+     'the house is lit, call the firefighters!',
+     'the house is on fire, call the fire department!',
+     'the house is on fire, call the firefighter!',
+     'the house is on fire, call the firefighters!',
+     'the house is on fire, call the fireman!',
+     'the house is on fire, call the firemen!',
+     'the house is on fire, firefighters are calling!',
+     'the house is on fire, the firefighters are calling!'}
+```
+## Simple verbose example
 Simple example erquesting for 10 similar sentences, using verbose and specifying a seed value 
 ```
 import NLPSentenceCreator
