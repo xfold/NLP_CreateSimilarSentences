@@ -3,11 +3,11 @@ This repository contains a simple wrapper built on top of the googletranslate py
 Given a sentence in any language, SentenceCreator generates similar sentences by leveraging the googletranslation library.
 The algorithm translates the original sentence to another language (up to `seqdepth` times), and then back to the original language. This results in similar but not exactly lexically equivalent sentences.
 
-This appraoch can be useful to generate new data for undersampled classes (the original idea that motivated this repository), or to create similar responses for e.g.automated decision systems or Chatbots. Also, this code was inspired after reading an article on (hanlding imbalanced data)[https://www.analyticsvidhya.com/blog/2020/11/handling-imbalanced-data-machine-learning-computer-vision-and-nlp/].
+This appraoch can be useful to generate new data for undersampled classes (the original idea that motivated this repository), or to create similar responses for e.g.automated decision systems or Chatbots. Also, this code was inspired after reading an article on [hanlding imbalanced data](https://www.analyticsvidhya.com/blog/2020/11/handling-imbalanced-data-machine-learning-computer-vision-and-nlp/).
 
 ## Table of contents
 * [Installation and Requirements](#Installation-and-Requirements)
-* [Virtual environment](#(optional)-Create-a-virtual-environment)
+* [Virtual environment](#optional-Create-a-virtual-environment)
 * [About error "'NoneType' object has no attribute 'group'"](#About-error-"'NoneType'-object-has-no-attribute-'group'")
 
 
