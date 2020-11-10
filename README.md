@@ -7,8 +7,8 @@ This appraoch can be useful to generate new data for undersampled classes (the o
 
 ## Table of contents
 * [Installation and Requirements](#Installation-and-Requirements)
-* [Virtual environment](#optional-Create-a-virtual-environment)
-* [About error "'NoneType' object has no attribute 'group'"](#About-error-"'NoneType'-object-has-no-attribute-'group'")
+* [Virtual environment](#Create-a-virtual-environment)
+* [About error "'NoneType' object has no attribute 'group'"](#About-error-NoneType-object-has-no-attribute-group)
 
 
 
@@ -19,7 +19,7 @@ Use the file `requirements.txt` to install all requirements using pip. A python 
 pip install -r requirements.txt
 ```
 
-# (optional) Create a virtual environment
+# Create a virtual environment
 It is often recommended to create a virtual environment before installing any new libraries or a github repository to not mess with your python installations. Here I used python3.7 to not mess with the local python libraries before installing the new python libs. Short cheatsheet in bash:
 ```bash
 python -m venv .venv
