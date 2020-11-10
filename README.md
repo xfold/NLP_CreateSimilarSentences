@@ -17,3 +17,6 @@ Once the virtual enviroment is created, we can install the project requirements 
 ```
 pip install -r requirements.txt
 ```
+
+# About error "'NoneType' object has no attribute 'group'"
+This is a common problem on Google's side, it happens when Google sends you directly the raw token. More on this [here](https://stackoverflow.com/questions/52455774/googletrans-stopped-working-with-error-nonetype-object-has-no-attribute-group)
