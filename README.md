@@ -3,7 +3,15 @@ This repository contains a simple wrapper built on top of the googletranslate py
 Given a sentence in any language, SentenceCreator generates similar sentences by leveraging the googletranslation library.
 The algorithm translates the original sentence to another language (up to `seqdepth` times), and then back to the original language. This results in similar but not exactly lexically equivalent sentences.
 
+For instance, this is the process used to generate a similar sentence to `The house is on fire, call the firemen!'`:
+```
+     'The house is on fire, call the firemen!' (en) -> '¡La casa está en llamas, llama a los bomberos!' (es) -> 
+    '¡The house is on fire, call the fire department!' (en, final)
+```
+
 This appraoch can be useful to generate new data for undersampled classes (the original idea that motivated this repository), or to create similar responses for e.g.automated decision systems or Chatbots. Also, this code was inspired after reading an article on [hanlding imbalanced data](https://www.analyticsvidhya.com/blog/2020/11/handling-imbalanced-data-machine-learning-computer-vision-and-nlp/).
+
+
 
 ## Table of contents
 * [Installation and Requirements](#Installation-and-Requirements)
@@ -19,6 +27,8 @@ Use the file `requirements.txt` to install all requirements using pip. A python 
 pip install -r requirements.txt
 ```
 
+
+
 # Create a virtual environment
 It is often recommended to create a virtual environment before installing any new libraries or a github repository to not mess with your python installations. Here I used python3.7 to not mess with the local python libraries before installing the new python libs. Short cheatsheet in bash:
 ```bash
@@ -33,4 +43,4 @@ py -m venv .venv
 To exit the venv, just type `deactivate`.
 
 # About error "'NoneType' object has no attribute 'group'"
-This is a common problem on Google's side, it happens when Google sends you directly the raw token. More on this [here](https://stackoverflow.com/questions/52455774/googletrans-stopped-working-with-error-nonetype-object-has-no-attribute-group)
+This is a common problem on Google's side; it happens when Google sends you directly the raw token. More on this [here](https://stackoverflow.com/questions/52455774/googletrans-stopped-working-with-error-nonetype-object-has-no-attribute-group)
