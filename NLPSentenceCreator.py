@@ -8,7 +8,7 @@ SentenceCreator
 Wrapper for googletranslate python library to generate similar sentences.
 
 Given a sentence in any language, SentenceCreator generates similar sentences by leveraging the googletranslation library.
-The algorithm translates the original sentence to another language (up to `seqdepth` times), and then back to the original sentence. This results in similar but not exactly lexically equivalent sentences.
+The algorithm translates the original sentence to another language (up to `seqdepth` times), and then back to the original language. This results in similar but not exactly lexically equivalent sentences.
 This appraoch might be useful to generate new data for undersampled classes (which was the idea that motivated this work)
 
 Example: 
@@ -18,6 +18,7 @@ Example:
 
 Usage:
     import NLPSentenceCreator
+    sc = NLPSentenceCreator.SentenceCreator()
     sentence = 'The house is on fire, call the firemen!'
     sc.CreateSimilarSentences(sentence)
     
