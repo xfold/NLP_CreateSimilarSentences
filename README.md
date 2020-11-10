@@ -69,6 +69,8 @@ All examples are included in the the jupyter notebook `RunExamples.ipynb` includ
 ## Simple example
 Simple example erquesting for 10 similar sentences, using verbose and specifying a seed value 
 ```
+import NLPSentenceCreator
+sc = NLPSentenceCreator.SentenceCreator()
 sentence = 'The house is on fire, call the firemen!'
 sc.CreateSimilarSentences(sentence, n=10, verbose=True, seed=42)
 >output:
@@ -96,6 +98,8 @@ sc.CreateSimilarSentences(sentence, n=10, verbose=True, seed=42)
 ## Example using another language
 In this example we start with a Spanish sentence, and define we are interested in translations of depth 5 (`seqdepth=5`) and not case sensitive (`caseSensitive=False`). As we see, the results are also provided in the sentence's original language.
 ```
+import NLPSentenceCreator
+sc = NLPSentenceCreator.SentenceCreator()
 sentence = '¡La casa está en llamas, llama a los bomberos!'
 sc.CreateSimilarSentences(sentence,
                     n = 5, 
