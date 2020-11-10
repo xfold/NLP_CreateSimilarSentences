@@ -54,13 +54,13 @@ sc.CreateSimilarSentences(sentence)
 ## Params:
 There are various parameters that can be passed to `CreateSimilarSentences` function and that modify its execution. Optional parameters are found in between parenthesis:
 <ul>
-     <li>originalsentence <str> : Sentence for which we want to generate similar sentences</li>
-     <li>(n <int>): Number of similar sentence to retrieve. The sentence generator will run until it generated `n` unique sentences or the `maxseqdepth` threshold is reached.</li>
-     <li>(seed <int>): seed for the random generator.<li>
-     <li>(caseSensitive <bool>): If True lowercase and uppercase sentences are considered different sentences. If false, otherwise.</li>
-     <li>(verbose <bool>): Defines the verbosity of the process. Set this to True to get a full printed log of the process.</li>
-     <li>(seqdepth <int>): number of translations performed before going back to original language. If `n` different sentences are not found at depth level `seqdepth`, the algorithm automatically searches for combinations of languages to create new translations. For instance, default searches are performed at `seqdepth=1` (meaning only one trasnlation is performed before re-translating the sentence to the original language, as in the example [en]->[es]->[en]). Setting `seqdepth=2` will result in two consecutive random translations, which may result in different original sentences, e.g. [en]->[es]->[de]->[en]. </li>
-     <li>(maxseqdepth <int>): Maximum depth to explore for similar sentences. Used as a stopping variable when the goal can't be found in the specified conditions.</li>
+     <li>originalsentence:str :- Sentence for which we want to generate similar sentences</li>
+     <li>(n:int) :- Number of similar sentence to retrieve. The sentence generator will run until it generated `n` unique sentences or the `maxseqdepth` threshold is reached.</li>
+     <li>(seed:int) :- seed for the random generator.</li>
+     <li>(caseSensitive:bool) :- If True lowercase and uppercase sentences are considered different sentences. If false, otherwise.</li>
+     <li>(verbos:bool:) :- Defines the verbosity of the process. Set this to True to get a full printed log of the process.</li>
+     <li>(seqdepth:int) :- number of translations performed before going back to original language. If `n` different sentences are not found at depth level `seqdepth`, the algorithm automatically searches for combinations of languages to create new translations. For instance, default searches are performed at `seqdepth=1` (meaning only one trasnlation is performed before re-translating the sentence to the original language, as in the example [en]->[es]->[en]). Setting `seqdepth=2` will result in two consecutive random translations, which may result in different original sentences, e.g. [en]->[es]->[de]->[en]. </li>
+     <li>(maxseqdepth:int) :- Maximum depth to explore for similar sentences. Used as a stopping variable when the goal can't be found in the specified conditions.</li>
 </ul>
        
 
