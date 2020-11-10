@@ -7,7 +7,18 @@ For instance, this is the process used to generate a similar sentence to `The ho
 ```
 (original, en) 'The house is on fire, call the firemen!'
 (first translation, es) '¡La casa está en llamas, llama a los bomberos!'
-(translate back to original lan, en) '¡The house is on fire, call the fire department!' (en, final)
+(translate back to original lan, en) '¡The house is on fire, call the fire department!' 
+>output: '¡The house is on fire, call the fire department!' 
+```
+Sentences are translated to a random language selected form the set of available languages. If not enough different sentences are obtained after the translation process, the algorithm automatically concatenates a random number of translations in order to obtain new ones. Following previous example, that could be:
+```
+(original, en) 'The house is on fire, call the firemen!'
+(first translation, es) '¡La casa está en llamas, llama a los bomberos!'
+(second translation, de) 'Das Haus brennt, rufen Sie die Feuerwehr!'
+...
+(after n translations)
+...
+(translate back to original lan, en) '¡The house is burning, call the fire department!'
 >output: '¡The house is on fire, call the fire department!' 
 ```
 
@@ -17,7 +28,7 @@ This appraoch can be useful to generate new data for undersampled classes (the o
 ## Table of contents
 * [Installation and Requirements](#Installation-and-Requirements)
 * [Usage](#Usage)
-
+* [Examples](#Examples)
 * [Virtual environment](#Create-a-virtual-environment)
 * [About error "'NoneType' object has no attribute 'group'"](#About-error-NoneType-object-has-no-attribute-group)
 
@@ -41,25 +52,82 @@ sc.CreateSimilarSentences(sentence)
      'The house is on fire, call the firemen!'}
 ``
 ## Params:
-There are some parameters that can be used to configure the execution of the `SentenceCreator`, listed and described next:
+There are various parameters that can be passed to `CreateSimilarSentences` function and that modify its execution. Optional parameters are found in between parenthesis:
 <ul>
-     <li>aa</li>
-     <li>bb</li>
+     <li>originalsentence <str> : Sentence for which we want to generate similar sentences</li>
+     <li>(n <int>): Number of similar sentence to retrieve. The sentence generator will run until it generated `n` unique sentences or the `maxseqdepth` threshold is reached.</li>
+     <li>(seed <int>): seed for the random generator.<li>
+     <li>(caseSensitive <bool>): If True lowercase and uppercase sentences are considered different sentences. If false, otherwise.</li>
+     <li>(verbose <bool>): Defines the verbosity of the process. Set this to True to get a full printed log of the process.</li>
+     <li>(seqdepth <int>): number of translations performed before going back to original language. If `n` different sentences are not found at depth level `seqdepth`, the algorithm automatically searches for combinations of languages to create new translations. For instance, default searches are performed at `seqdepth=1` (meaning only one trasnlation is performed before re-translating the sentence to the original language, as in the example [en]->[es]->[en]). Setting `seqdepth=2` will result in two consecutive random translations, which may result in different original sentences, e.g. [en]->[es]->[de]->[en]. </li>
+     <li>(maxseqdepth <int>): Maximum depth to explore for similar sentences. Used as a stopping variable when the goal can't be found in the specified conditions.</li>
 </ul>
-        
-   originalsentence <str> : Sentence for which we want to generate similar sentences
-   n <int> : Number of similar sentence to retrieve
-   seqdepth <int> : initial number of translations before going back to original language. If `n` different sentences are not found at depth level `seqdepth`, the algorithm automatically searches for combinations of translations in deeper levels. 
-   seed <int> : random seed
-   caseSensitive <bool> : true will consider lowercase and uppercase sentences as different sentences. False will consider them as the same sentence.
-   verbose <bool> : Defines the verbosity of the process. Set to true to understand how the solution was achieved
-   maxseqdepth <int> : maximum depth to explore for similar sentences. Used as a stopping variable when different sentences can't be found in the specified conditions.
+       
 
 # Examples
+All examples are included in the the jupyter notebook `RunExamples.ipynb` included in the project. Here I include some of them:
+## Simple example
+Simple example erquesting for 10 similar sentences, using verbose and specifying a seed value 
+```
+sentence = 'The house is on fire, call the firemen!'
+sc.CreateSimilarSentences(sentence, n=10, verbose=True, seed=42)
+>output:
+     Original language en
+     generated combos [('it',), ('es',), ('hu',), ('fr',), ('bg',), ('af',), ('ar',), ('pa',), ('de',), ('el',)]
+     >Selected ('es',)
+          [ es ] Sentence  ¡La casa está en llamas, llama a los bomberos!
+          FINAL [ en ] Sentence  the house is on fire, call the fire department!
+     >Selected ('it',)
+          [ it ] Sentence  La casa sta andando a fuoco, chiamate i pompieri!
+          FINAL [ en ] Sentence  the house is on fire, call the firemen!
+     ...
+     
+     [Out] : {'the house is burning, call the firefighters!',
+     'the house is burning, the firefighters are calling!',
+     'the house is lit, call the firefighters!',
+     'the house is on fire, call the fire department!',
+     'the house is on fire, call the firefighter!',
+     'the house is on fire, call the firefighters!',
+     'the house is on fire, call the fireman!',
+     'the house is on fire, call the firemen!',
+     'the house is on fire, firefighters are calling!',
+     'the house is on fire, the firefighters are calling!'}
+```
+## Example using another language
+In this example we start with a Spanish sentence, and define we are interested in translations of depth 5 (`seqdepth=5`) and not case sensitive (`caseSensitive=False`). As we see, the results are also provided in the sentence's original language.
+```
+sentence = '¡La casa está en llamas, llama a los bomberos!'
+sc.CreateSimilarSentences(sentence,
+                    n = 5, 
+                    seqdepth=5,
+                    maxseqdepth=6,
+                    seed=42,
+                    caseSensitive=False,
+                    verbose = True)
+output: 
+     Original language es
+     generated combos [('it', 'es', 'hu', 'fr', 'bg'), ('it', 'es', 'hu', 'fr', 'af'), ('it', 'es', 'hu', 'fr', 'ar'), ('it', 'es', 'hu', 'fr', 'pa'), ('it', 'es', 'hu', 'fr', 'de'), .......... 
+     ...
+     >Selected ('it', 'hu', 'bg', 'af', 'pa')
+          [ it ] Sentence  La casa è in fiamme, chiama i vigili del fuoco!
+          [ hu ] Sentence  A ház ég, hívja a tűzoltókat!
+          [ bg ] Sentence  Къщата гори, обадете се на пожарникарите!
+          [ af ] Sentence  Die huis brand, skakel die brandweer!
+          [ pa ] Sentence  ਘਰ ਨੂੰ ਅੱਗ ਲੱਗੀ ਹੋਈ ਹੈ, ਫਾਇਰ ਵਿਭਾਗ ਨੂੰ ਬੁਲਾਓ!
+          FINAL [ es ] Sentence  ¡la casa está en llamas, llame a los bomberos!
+     >Selected ('it', 'hu', 'fr', 'af', 'el')
+          [ it ] Sentence  La casa è in fiamme, chiama i vigili del fuoco!
+          [ hu ] Sentence  A ház ég, hívja a tűzoltókat!
+          ...
+     ...
+     ...
+     [Out] : {'la casa está en llamas, ¡llama a los bomberos!',
+      '¡la casa está en llamas, apaga el fuego! ¡llame al departamento!',
+      '¡la casa está en llamas, el fuego se está apagando! ¡llame al departamento!',
+      '¡la casa está en llamas, llama al bombero!',
+      '¡la casa está en llamas, llame a los bomberos!'}
 
-
-
-
+```
 
 # Create a virtual environment
 It is often recommended to create a virtual environment before installing any new libraries or a github repository to not mess with your python installations. Here I used python3.7 to not mess with the local python libraries before installing the new python libs. Short cheatsheet in bash:
